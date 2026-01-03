@@ -108,7 +108,7 @@ export default function App() {
                 {error && (
                   <div className="brutalist-card p-4 bg-red-100 border-[#0d0d0d] border-[3px] shadow-[4px_4px_0px_#0d0d0d] animate-in slide-in-from-top-2 duration-200">
                     <p className="text-red-600 font-bold text-sm uppercase tracking-tight">
-                      ⚠️ Error: {error}
+                     {` ⚠️ Error: {error}`}
                     </p>
                   </div>
                 )}
@@ -116,7 +116,7 @@ export default function App() {
             ) : (
               <div className="brutalist-card p-10 space-y-5 bg-white text-left animate-in fade-in zoom-in duration-300">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-3xl font-black uppercase tracking-tight">You're locked in!</h3>
+                  <h3 className="text-3xl font-black uppercase tracking-tight">{`You're locked in!`}</h3>
                   <div className="text-4xl">✨</div>
                 </div>
                 <p className="font-bold text-gray-700 leading-relaxed">
@@ -130,14 +130,14 @@ export default function App() {
             )}
 
             <p className="mt-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
-              {`No credit card required &nbsp;•&nbsp; 100% Free Forever for Early Birds`}
+              {`No credit card required 100% Free for Early Birds`}
             </p>
           </div>
         </div>
 
         {/* Wishlist Benefits */}
         <div className="mt-28 max-w-6xl w-full">
-          <h2 className="text-2xl font-black uppercase mb-8 text-left tracking-tight">Why join the wishlist?</h2>
+          <h2 className="text-2xl font-black uppercase mb-8 text-left tracking-tight">{`Why join the wishlist?`}</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               { icon: '👑', title: 'Priority Handles', text: 'Early members get the first pick of usernames. Secure your brand name before it\'s taken by someone else.', bg: 'bg-white' },
@@ -164,7 +164,7 @@ export default function App() {
             <a href="#" className="hover:text-black transition-colors">Support</a>
           </div> */}
           <div className="text-[9px] font-black text-gray-300 tracking-[0.3em] uppercase">
-            Est. 2026 &nbsp;•&nbsp; Made for Creators & Professionals
+            {`Est. 2026  Made for Creators & Professionals`}
           </div>
         </div>
       </footer>
