@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+
+:root {
+  --foreground-rgb: 13, 13, 13;
+  --background-rgb: 248, 250, 252;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+@layer components {
+  .brutalist-card {
+    @apply transition-all duration-200;
+  }
+
+  .highlight-accent {
+    @apply inline-block;
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-content {
+  animation: marquee 40s linear infinite;
+}
+
+
+@media (max-width: 768px) {
+  .marquee-content {
+    animation-duration: 25s;
+  }
+}
