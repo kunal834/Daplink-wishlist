@@ -10,23 +10,29 @@ export async function POST(req) {
     const refCode = `WL-${Math.floor(1000 + Math.random() * 9000)}`;
 
     // 1. Save to database
-    const { error: dbError } = await supabase
+    const { error } = await supabase
       .from('Wishlist')
       .insert({ email, ref_code: refCode });
 
-    if (dbError) {
-      console.error("Database Error:", dbError);
+    if (error.code === '23505') {
       return NextResponse.json(
-        { error: 'Already Wishlisted or Database Error' },
+        { error: 'Already Wishlisted!!' },
         { status: 400 }
       );
+    }
+    else{
+      console.log('database Error',error);
+      return NextResponse.json(
+        {error:'Something Went Wrong try again!! later'},
+        {status:500}
+        );
     }
 
     // 2. Send confirmation email (AND CHECK FOR ERRORS)
     const { data, error: resendError } = await resend.emails.send({
       from: 'DapLink <onboarding@daplink.online>', // Make sure this matches your verified domain
       to: email,
-      subject: 'You’re on the DapLink Wishlist 🚀',
+      subject: 'DapLink wishlist Entry confirmed',
      html: `
       <div style="background:#f8fafc;padding:40px 16px;font-family:'Plus Jakarta Sans',Arial,sans-serif;">
         <div style="max-width:520px;margin:0 auto;background:#ffffff;border:3px solid #0d0d0d;box-shadow:6px 6px 0 #0d0d0d;padding:32px;">
