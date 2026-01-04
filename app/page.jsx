@@ -49,8 +49,18 @@ export default function App() {
       <div className="marquee-container fixed top-0 w-full z-50 overflow-hidden bg-[#0d0d0d] text-white py-2.5 border-b-[3px] border-black">
         <div className="marquee-content flex whitespace-nowrap font-extrabold uppercase tracking-widest text-[0.75rem]">
           {[1, 2].map((i) => (
-            <span key={i} className="flex shrink-0">
-             {` RESERVING HANDLES FOR 2026  PREMIUM THEMES FOR EARLY MEMBERS JOIN THE OFFICIAL WISHLIST SECURE YOUR BRAND  JOIN THE OFFICIAL WISHLIST SECURE YOUR BRAND JOIN THE OFFICIAL WISHLIST SECURE YOUR BRAND  JOIN THE OFFICIAL WISHLIST SECURE YOUR BRAND  JOIN THE OFFICIAL WISHLIST SECURE YOUR BRAND `}
+            <span key={i} className="flex shrink-0 items-center">
+              <span>RESERVING HANDLES FOR 2026</span>
+              <span className="mx-4">•</span>
+
+              <span>PREMIUM THEMES FOR EARLY MEMBERS</span>
+              <span className="mx-4">•</span>
+
+              <span>JOIN THE OFFICIAL WISHLIST</span>
+              <span className="mx-4">•</span>
+
+              <span>SECURE YOUR BRAND</span>
+              <span className="mx-4">•</span>
             </span>
           ))}
         </div>
