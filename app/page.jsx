@@ -12,7 +12,7 @@ export default function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(''); // Reset error state before attempt
+    setError('');
 
     try {
       const res = await fetch('/api/wishlist', {
@@ -23,18 +23,23 @@ export default function App() {
         body: JSON.stringify({ email }),
       });
 
-      const data = await res.json();
+      // Safely parse JSON (prevents crash if 404 or 500 returns HTML)
+      let data;
+      try {
+        data = await res.json();
+      } catch (parseError) {
+        throw new Error('Server returned an invalid response. API route might be missing.');
+      }
 
       if (res.ok) {
         setRefId(data.refCode || `REF: #WL-${Math.floor(1000 + Math.random() * 8999)}`);
         setIsSubmitted(true);
       } else {
-        // Handle specific backend errors (e.g., "Email already exists")
         setError(data.error || 'Something went wrong. Please try again.');
       }
     } catch (err) {
-      // Handle network or unexpected errors
-      setError('Connection failed. Please check your internet or try again later.');
+      console.error(err);
+      setError(err.message || 'Connection failed. Please check your internet.');
     } finally {
       setLoading(false);
     }
@@ -50,7 +55,7 @@ export default function App() {
         <div className="marquee-content flex whitespace-nowrap font-extrabold uppercase tracking-widest text-[0.75rem]">
           {[1, 2].map((i) => (
             <span key={i} className="flex shrink-0">
-             {` RESERVING HANDLES FOR 2026  PREMIUM THEMES FOR EARLY MEMBERS JOIN THE OFFICIAL WISHLIST SECURE YOUR BRAND  JOIN THE OFFICIAL WISHLIST SECURE YOUR BRAND JOIN THE OFFICIAL WISHLIST SECURE YOUR BRAND  JOIN THE OFFICIAL WISHLIST SECURE YOUR BRAND  JOIN THE OFFICIAL WISHLIST SECURE YOUR BRAND `}
+             {` RESERVING HANDLES FOR 2026 • PREMIUM THEMES FOR EARLY MEMBERS • JOIN THE OFFICIAL WISHLIST • SECURE YOUR BRAND • JOIN THE OFFICIAL WISHLIST • SECURE YOUR BRAND • JOIN THE OFFICIAL WISHLIST • SECURE YOUR BRAND • JOIN THE OFFICIAL WISHLIST • SECURE YOUR BRAND • JOIN THE OFFICIAL WISHLIST • SECURE YOUR BRAND `}
             </span>
           ))}
         </div>
@@ -58,8 +63,12 @@ export default function App() {
 
       {/* Navigation */}
       <header className="w-full max-w-7xl mx-auto px-6 pt-24 flex justify-between items-center">
-        <div className="brutalist-card px-5 py-2 text-2xl font-black tracking-tight bg-white">
-          DapLink<span className="text-[#6366f1]">{`.online`}</span>
+        <div className="brutalist-card flex gap-2 px-5 py-2 text-2xl font-black tracking-tight bg-white">
+         <img 
+              src="/innovate.png" 
+              alt="Logo" 
+              className="h-7 w-auto object-contain" 
+            />  DapLink
         </div>
         <div className="hidden md:flex items-center gap-4">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30">{`Build. Share. Connect.`}</span>
@@ -72,15 +81,13 @@ export default function App() {
           {/* Hero Title */}
           <div className="space-y-6">
             <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-none uppercase">
-              Your Links. <br />
+             {` Your Links.`} <br />
               <span className="highlight-accent italic text-white px-2 py-0.5 bg-[#6366f1] border-2 border-black inline-block">Zero Limits.</span>
             </h1>
             <p className="text-lg md:text-xl font-bold max-w-2xl mx-auto text-gray-700 leading-relaxed">
-             DapLink is here to revolutionize your portfolio and empowers you to grow exponentially. Join the wishlist to secure your <span className="text-black underline decoration-[#6366f1] decoration-4">priority username</span> and get early access to our private beta.
+            {` DapLink is here to revolutionize your portfolio and empowers you to grow exponentially. Join the wishlist to secure your <span className="text-black underline decoration-[#6366f1] decoration-4">priority username</span> and get early access to our private beta.`}
             </p>
           </div>
-
-     
 
           {/* Action Area */}
           <div className="max-w-xl mx-auto w-full relative">
@@ -108,7 +115,7 @@ export default function App() {
                 {error && (
                   <div className="brutalist-card p-4 bg-red-100 border-[#0d0d0d] border-[3px] shadow-[4px_4px_0px_#0d0d0d] animate-in slide-in-from-top-2 duration-200">
                     <p className="text-red-600 font-bold text-sm uppercase tracking-tight">
-                     {` ⚠️ Error: {error}`}
+                      {`⚠️ Error: ${error}`}
                     </p>
                   </div>
                 )}
@@ -130,7 +137,7 @@ export default function App() {
             )}
 
             <p className="mt-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
-              {`No credit card required 100% Free for Early Birds`}
+              {`No credit card required • 100% Free for Early Birds`}
             </p>
           </div>
         </div>
@@ -157,14 +164,17 @@ export default function App() {
       {/* Footer */}
       <footer className="w-full bg-white border-t-4 border-black py-12 px-6 mt-20">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
-          <div className="font-black text-2xl tracking-tighter uppercase italic">{`daplink.online`}</div>
-          {/* <div className="flex gap-8 font-bold uppercase text-[10px] tracking-[0.2em] text-gray-500">
-            <a href="#" className="hover:text-black transition-colors">Twitter</a>
-            <a href="#" className="hover:text-black transition-colors">Discord</a>
-            <a href="#" className="hover:text-black transition-colors">Support</a>
-          </div> */}
+          <div className="font-black text-2xl tracking-tighter uppercase italic flex items-center justify-center md:justify-start gap-2"> 
+            {/* FIXED IMAGE SIZING HERE */}
+            <img 
+              src="/innovate.png" 
+              alt="Logo" 
+              className="h-16 w-auto object-contain" 
+            />
+           
+          </div>
           <div className="text-[9px] font-black text-gray-300 tracking-[0.3em] uppercase">
-            {`Est. 2026  Made for Creators & Professionals`}
+            {`Est. 2026 • Made for Creators & Professionals`}
           </div>
         </div>
       </footer>
@@ -184,6 +194,7 @@ export default function App() {
         .brutalist-card {
           border: 3px solid #0d0d0d;
           box-shadow: 6px 6px 0px #0d0d0d;
+          transition: transform 0.2s, box-shadow 0.2s;
         }
         .brutalist-card:hover {
           transform: translate(-2px, -2px);
