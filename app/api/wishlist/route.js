@@ -14,26 +14,28 @@ export async function POST(req) {
       .from('Wishlist')
       .insert({ email, ref_code: refCode });
 
-    if (error.code === '23505') {
-      return NextResponse.json(
-        { error: 'Already Wishlisted!!' },
-        { status: 400 }
-      );
-    }
-    else{
-      console.log('database Error',error);
-      return NextResponse.json(
-        {error:'Something Went Wrong try again!! later'},
-        {status:500}
+    // FIX: Check if error exists first
+    if (error) {
+      if (error.code === '23505') {
+        return NextResponse.json(
+          { error: 'Already Wishlisted!!' },
+          { status: 400 }
         );
+      } else {
+        console.error('Database Error:', error);
+        return NextResponse.json(
+          { error: 'Something went wrong, try again later!!' },
+          { status: 500 }
+        );
+      }
     }
 
-    // 2. Send confirmation email (AND CHECK FOR ERRORS)
+    // 2. Send confirmation email
     const { data, error: resendError } = await resend.emails.send({
-      from: 'DapLink <onboarding@daplink.online>', // Make sure this matches your verified domain
+      from: 'Kunal from DapLink <onboarding@daplink.online>',
       to: email,
-      subject: 'DapLink wishlist Entry confirmed',
-     html: `
+      subject: 'DapLink Wishlist Entry Confirmed',
+      html: `
       <div style="background:#f8fafc;padding:40px 16px;font-family:'Plus Jakarta Sans',Arial,sans-serif;">
         <div style="max-width:520px;margin:0 auto;background:#ffffff;border:3px solid #0d0d0d;box-shadow:6px 6px 0 #0d0d0d;padding:32px;">
           
@@ -83,14 +85,13 @@ export async function POST(req) {
           EST. 2026 • MADE FOR CREATORS AND PROFESSIONALS
         </div>
       </div>
-    ` ,// Simplified for testing
+    `,
     });
 
-    // 3. If Resend fails, tell the frontend!
     if (resendError) {
       console.error("Resend Error:", resendError);
       return NextResponse.json(
-        { error: `Email failed: ${resendError.message}` }, 
+        { error: `Email failed: ${resendError.message}` },
         { status: 500 }
       );
     }
