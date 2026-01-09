@@ -83,9 +83,9 @@ export default function App() {
             <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-none uppercase">
              {` Your Links.`} <br />
               <span className="highlight-accent italic text-white px-2 py-0.5 bg-[#6366f1] border-2 border-black inline-block">Zero Limits.</span>
-            </h1>
+            </h1> 
             <p className="text-lg md:text-xl font-bold max-w-2xl mx-auto text-gray-700 leading-relaxed">
-            {` DapLink is here to revolutionize your portfolio and empowers you to grow exponentially. Join the wishlist to secure your <span className="text-black underline decoration-[#6366f1] decoration-4">priority username</span> and get early access to our private beta.`}
+            {` DapLink is here to revolutionize your portfolio and empowers you to grow exponentially. Join the wishlist to secure your priority username and get early access to our private beta.`}
             </p>
           </div>
 
