@@ -67,7 +67,7 @@ export default function App() {
          <img 
               src="/innovate.png" 
               alt="Logo" 
-              className="h-7 w-auto object-contain" 
+              className="h-9 w-auto object-contain" 
             />  DapLink
         </div>
         <div className="hidden md:flex items-center gap-4">
