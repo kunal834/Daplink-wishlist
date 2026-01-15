@@ -87,6 +87,7 @@ export default function App() {
             <p className="text-lg md:text-xl font-bold max-w-2xl mx-auto text-gray-700 leading-relaxed">
             {` The first bio tool built for monetization. Showcase your portfolio and let brands bid for space on your profile`}
             </p>
+            <h1 className="text-3xl md:text-4xl font-black tracking-tight leading-none uppercase">{`Join the First 200 Beta Users`}</h1>
           </div>
 
           {/* Action Area */}
