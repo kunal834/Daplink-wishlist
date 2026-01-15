@@ -82,10 +82,10 @@ export default function App() {
           <div className="space-y-6">
             <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-none uppercase">
              {` Your Links.`} <br />
-              <span className="highlight-accent italic text-white px-2 py-0.5 bg-[#6366f1] border-2 border-black inline-block">Zero Limits.</span>
+              <span className="highlight-accent italic text-white px-2 py-0.5 bg-[#6366f1] border-2 border-black inline-block">YOUR REVENUE.</span>
             </h1> 
             <p className="text-lg md:text-xl font-bold max-w-2xl mx-auto text-gray-700 leading-relaxed">
-            {` DapLink is here to revolutionize your portfolio and empowers you to grow exponentially. Join the wishlist to secure your priority username and get early access to our private beta.`}
+            {` The first bio tool built for monetization. Showcase your portfolio and let brands bid for space on your profile`}
             </p>
           </div>
 
@@ -107,7 +107,7 @@ export default function App() {
                     disabled={loading}
                     className="brutalist-button px-10 py-5 text-lg bg-black text-white font-black uppercase tracking-tight border-[3px] border-black shadow-[4px_4px_0px_#6366f1] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[6px_6px_0px_#6366f1] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all disabled:opacity-50"
                   >
-                    {loading ? 'Joining...' : 'Join Wishlist'}
+                    {loading ? 'Joining...' : 'Join the Beta'}
                   </button>
                 </form>
                 
