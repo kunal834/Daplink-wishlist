@@ -39,8 +39,8 @@ export async function POST(req) {
       <div style="background:#f8fafc;padding:40px 16px;font-family:'Plus Jakarta Sans',Arial,sans-serif;">
         <div style="max-width:520px;margin:0 auto;background:#ffffff;border:3px solid #0d0d0d;box-shadow:6px 6px 0 #0d0d0d;padding:32px;">
           
-          <div style="font-size:24px;font-weight:900;letter-spacing:-0.03em;">
-            daplink<span style="color:#6366f1;">.online</span>
+          <div style="font-size:24px;font-weight:900;letter-spacing:-0.03em; display:flex">
+            DapLink <img src="/innovate.png" alt="logo" />
           </div>
 
           <div style="height:3px;background:#0d0d0d;margin:20px 0;"></div>
