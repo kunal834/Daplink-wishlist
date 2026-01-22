@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import confetti from 'canvas-confetti'; // Import the confetti library
 
 export default function App() {
   const [email, setEmail] = useState('');
@@ -8,6 +9,39 @@ export default function App() {
   const [refId, setRefId] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Function to trigger the "Founder's Celebration" confetti
+  const triggerCelebration = () => {
+    const duration = 3 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+    const randomInRange = (min, max) => Math.random() * (max - min) + min;
+
+    const interval = setInterval(function() {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 50 * (timeLeft / duration);
+      
+      // Confetti from left and right corners
+      confetti({
+        ...defaults, 
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+        colors: ['#6366f1', '#000000', '#ffffff'] // Brand colors
+      });
+      confetti({
+        ...defaults, 
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+        colors: ['#6366f1', '#000000', '#ffffff']
+      });
+    }, 250);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,23 +57,23 @@ export default function App() {
         body: JSON.stringify({ email }),
       });
 
-      // Safely parse JSON (prevents crash if 404 or 500 returns HTML)
       let data;
       try {
         data = await res.json();
       } catch (parseError) {
-        throw new Error('Server returned an invalid response. API route might be missing.');
+        throw new Error('Server returned an invalid response.');
       }
 
       if (res.ok) {
         setRefId(data.refCode || `REF: #WL-${Math.floor(1000 + Math.random() * 8999)}`);
         setIsSubmitted(true);
+        triggerCelebration(); // <--- TRIGGER ANIMATION HERE
       } else {
         setError(data.error || 'Something went wrong. Please try again.');
       }
     } catch (err) {
       console.error(err);
-      setError(err.message || 'Connection failed. Please check your internet.');
+      setError(err.message || 'Connection failed.');
     } finally {
       setLoading(false);
     }
@@ -87,7 +121,9 @@ export default function App() {
             <p className="text-lg md:text-xl font-bold max-w-2xl mx-auto text-gray-700 leading-relaxed">
             {` The first bio tool built for monetization. Showcase your portfolio and let brands bid for space on your profile`}
             </p>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight leading-none uppercase">{`Join the First 200 Beta Users`}</h1>
+            {!isSubmitted && (
+               <h1 className="text-3xl md:text-4xl font-black tracking-tight leading-none uppercase">{`Join the First 200 Beta Users`}</h1>
+            )}
           </div>
 
           {/* Action Area */}
@@ -112,7 +148,6 @@ export default function App() {
                   </button>
                 </form>
                 
-                {/* Error Message UI */}
                 {error && (
                   <div className="brutalist-card p-4 bg-red-100 border-[#0d0d0d] border-[3px] shadow-[4px_4px_0px_#0d0d0d] animate-in slide-in-from-top-2 duration-200">
                     <p className="text-red-600 font-bold text-sm uppercase tracking-tight">
@@ -122,24 +157,43 @@ export default function App() {
                 )}
               </div>
             ) : (
-              <div className="brutalist-card p-10 space-y-5 bg-white text-left animate-in fade-in zoom-in duration-300">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-3xl font-black uppercase tracking-tight">{`You're locked in!`}</h3>
-                  <div className="text-4xl">✨</div>
+                /* --- SUCCESS STATE / FOUNDER BADGE POPUP --- */
+              <div className="brutalist-card p-0 overflow-hidden bg-white text-left animate-in fade-in zoom-in duration-500 relative">
+                {/* Badge Header */}
+                <div className="bg-[#6366f1] border-b-[3px] border-black p-4 flex items-center justify-between text-white">
+                    <div className="flex items-center gap-2">
+                        <span className="text-2xl">👑</span>
+                        <span className="font-black uppercase tracking-wider text-sm">Founding Member Status</span>
+                    </div>
+                    <div className="font-mono text-xs font-bold bg-black px-2 py-1">#{Math.floor(Math.random() * 199) + 1}/200</div>
                 </div>
-                <p className="font-bold text-gray-700 leading-relaxed">
-                  {`We've saved your spot. You are now officially on the daplink.online wishlist. We'll send you an invite as soon as we open the doors.`}
-                </p>
-                <div className="pt-2 flex flex-wrap items-center gap-3">
-                  <div className="font-mono text-sm border-2 border-black bg-gray-50 p-2 font-bold px-4">{refId}</div>
-                  <span className="text-[10px] font-black uppercase text-[#6366f1] bg-[#6366f1]/10 px-2 py-1">Priority Selection Active</span>
+
+                {/* Badge Body */}
+                <div className="p-8 space-y-4">
+                    <h3 className="text-3xl font-black uppercase tracking-tight leading-none">
+                        You're Early!
+                    </h3>
+                    <p className="font-bold text-gray-600 leading-relaxed">
+                        You've secured your spot in our exclusive beta. As an early adopter, you have unlocked the <strong>Founding Member</strong> badge for your future profile.
+                    </p>
+                    
+                    <div className="pt-4 border-t-2 border-dashed border-gray-300 mt-4">
+                         <div className="flex items-center justify-between">
+                            <span className="text-xs font-black uppercase text-gray-400">Your Ticket ID</span>
+                            <span className="font-mono text-sm font-bold bg-yellow-300 border-2 border-black px-3 py-1 shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+                                {refId}
+                            </span>
+                         </div>
+                    </div>
                 </div>
               </div>
             )}
 
-            <p className="mt-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
-              {`No credit card required • 100% Free for Early Birds`}
-            </p>
+            {!isSubmitted && (
+                <p className="mt-8 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
+                {`No credit card required • 100% Free for Early Birds`}
+                </p>
+            )}
           </div>
         </div>
 
@@ -166,7 +220,6 @@ export default function App() {
       <footer className="w-full bg-white border-t-4 border-black py-12 px-6 mt-20">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
           <div className="font-black text-2xl tracking-tighter uppercase italic flex items-center justify-center md:justify-start gap-2"> 
-            {/* FIXED IMAGE SIZING HERE */}
             <img 
               src="/innovate.png" 
               alt="Logo" 
