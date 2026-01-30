@@ -163,9 +163,9 @@ export default function App() {
                 <div className="bg-[#6366f1] border-b-[3px] border-black p-4 flex items-center justify-between text-white">
                     <div className="flex items-center gap-2">
                         <span className="text-2xl">👑</span>
-                        <span className="font-black uppercase tracking-wider text-sm">Founding Member Status</span>
+                        <span className="font-black uppercase tracking-wider text-sm">Alpha Member Status</span>
                     </div>
-                    <div className="font-mono text-xs font-bold bg-black px-2 py-1">#{Math.floor(Math.random() * 199) + 1}/200</div>
+                    {/* <div className="font-mono text-xs font-bold bg-black px-2 py-1">#{Math.floor(Math.random() * 199) + 1}/200</div> */}
                 </div>
 
                 {/* Badge Body */}
@@ -174,7 +174,7 @@ export default function App() {
                         You're Early!
                     </h3>
                     <p className="font-bold text-gray-600 leading-relaxed">
-                        You've secured your spot in our exclusive beta. As an early adopter, you have unlocked the <strong>Founding Member</strong> badge for your future profile.
+                       {` You've secured your spot in our exclusive beta. As an early adopter, you have unlocked the`} <strong>Alpha Pioneer</strong> badge for your future profile.
                     </p>
                     
                     <div className="pt-4 border-t-2 border-dashed border-gray-300 mt-4">

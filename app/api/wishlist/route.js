@@ -33,7 +33,7 @@ export async function POST(req) {
     const { data, error: resendError } = await resend.emails.send({
       from: 'Kunal from DapLink <onboarding@daplink.online>',
       to: email,
-      subject: 'Welcome to the Founders Club 👑',
+      subject: 'Welcome to the Alpha Pioneer 👑',
       html: `
       <div style="background:#f8fafc;padding:40px 16px;font-family:'Plus Jakarta Sans',Arial,sans-serif;">
         <div style="max-width:520px;margin:0 auto;background:#ffffff;border:3px solid #0d0d0d;box-shadow:6px 6px 0 #0d0d0d;padding:32px;">
@@ -55,7 +55,7 @@ export async function POST(req) {
                   <td style="padding-right:10px; font-size:24px; line-height:1;">👑</td>
                   <td>
                     <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:900; font-size:14px; text-transform:uppercase; color:#0d0d0d; letter-spacing:0.05em; line-height:1.2;">
-                      Founding Member
+                      Alpha Pioneer
                     </div>
                     <div style="font-size:10px; font-weight:700; color:#4b3804;">
                       BATCH: EARLY ADOPTER
